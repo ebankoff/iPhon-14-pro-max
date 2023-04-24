@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;800');
+
+* {
+	margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #fff;
+    user-select: none;
+}
+
+.box {
+    position: relative;
+    width: 300px;
+    height: 600px;
+    background: #666;
+    border-radius: 50px;
+}
+
+.box::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: #000;
+    border-radius: 48px;
+}
+
+.inner {
+    position: absolute;
+    inset: 3px;
+    background: url(bg.png);
+    background-size: cover;
+    background-position: center;
+    border-radius: 48px;
+    border: 10px solid #000;
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.box:hover .inner{
+    opacity: 1;
+}
+
+.btn {
+    position: absolute;
+    top: 110px;
+    left: -2px;
+    width: 3px;
+    height: 26px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    background: radial-gradient(#ccc, #666, #222);
+    z-index: 10;
+}
+
+.btn.btn2 {
+    top: 160px;
+    height: 40px;
+}
+
+.btn.btn3 {
+    top: 220px;
+    height: 40px;
+}
+
+.rightSlideBtn {
+    position: absolute;
+    top: 170px;
+    right: -2px;
+    width: 3px;
+    height: 70px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background: radial-gradient(#ccc, #666, #222);
+    z-index: 10;
+    cursor: pointer;
+}
+
+.island_popup {
+    position: absolute;
+    top: 10px;
+    width: 90px;
+    height: 25px;
+    background: #000;
+    border-radius: 20px;
+    transition: 0.5s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.island_popup:hover {
+    width: 200px;
+    height: 25px;
+}
+
+
+.island_popup.active {
+    width: 250px;
+    height: 60px;
+    border-radius: 50px;
+    z-index: 1000;
+}
+
+.content {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 10px;
+    line-height: 25px;
+}
+
+.content p {
+    color: #fff;
+    font-size: 0.6em;
+    cursor: default;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+ion-icon {
+    cursor: pointer;
+}
+
+.action {
+    position: relative;
+    top: 5px;
+    color: #fff;
+    display: flex;
+    gap: 12px;
+    transition: 0.5s;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.island_popup.active .action {
+    top: 12px;
+}
+
+ion-icon.red {
+    color: #fd443b;
+    transform: rotate(135deg);
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+ion-icon.green {
+    color: #31d059;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.island_popup:hover p,
+.island_popup.active p,
+.island_popup:hover .action,
+.island_popup.active .action{
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0.25s;
+}
+
+.island_popup.active ion-icon.red {
+    background: #fd443b;
+    color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 8px #fd443b;
+    margin-right: 12px;
+}
+
+.island_popup.active ion-icon.green {
+    background: #31d059;
+    color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 8px #31d059;
+    margin-right: 8px;
+}
+
+.detalis {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.detalis .imgBx {
+    position: relative;
+    width: 0;
+    height: 0;
+    background: #fff;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.island_popup.active .detalis .imgBx {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+}
+
+.detalis .imgBx img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.display {
+    position: absolute;
+    width: 100px;
+    height: 3px;
+    background: rgba(255,254,254.1);
+    border-radius: 50px;
+    margin-top: 580px;
+    margin-left: 100px;
+    opacity: 0;
+    transition: 0.25s;
+}
+
+.box:hover .display {
+    opacity: 1;
+}
+
+.flash {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    margin-top: 520px;
+    margin-left: 35px;
+    border-radius: 50px;
+    opacity: 0;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.flash ion-icon {
+    margin-left: 10.7px;
+    margin-top: 10.7px;
+    color: #fff;
+    font-size: 1.4em;
+    transform: rotate(-45deg);
+}
+
+.camera {
+    position: absolute;
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    margin-top: 520px;
+    margin-left: 225px;
+    border-radius: 50px;
+    opacity: 0;
+    transition: 0.25s;
+}
+
+.camera ion-icon {
+    margin-left: 10.7px;
+    margin-top: 10.7px;
+    color: #fff;
+    font-size: 1.4em;
+}
+
+.box:hover .flash,
+.box:hover .camera {
+    opacity: 1;
+}
+
+.wrapper {
+    margin-left: 40px;
+    position: absolute;
+    margin-top: 100px;
+    margin-left: 75px;
+    opacity: 0;
+    transition: 0.25s;
+}
+
+.display2 #time {
+    color: #fff;
+    font-size: 3.5em;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.box:hover .wrapper {
+    opacity: 1;
+}
+
+.widjet {
+    z-index: -10000;
+    display: flex;
+    color: #fff;
+    gap: 5px;
+    margin-left: 210px;
+    margin-top: 27px;
+    opacity: 0;
+    transition: 0.25s;
+
+}
+
+.box:hover .widjet {
+    opacity: 1;
+}
+
+.music img{
+    position: absolute;
+    width: 220px;
+    margin-left: 40px;
+    margin-top: 140px;
+    border-radius: 15px;
+    opacity: 0;
+    transition: 0.25s;
+}
+
+.box:hover .music img {
+    opacity: 1;
+}
+
+.date {
+    position: absolute;
+    color: #fff;
+    margin-left: 80px;
+    margin-top: 90px;
+    opacity: 0;
+    transition: 0.25s;
+}
+
+.box:hover .date {
+    opacity: 1;
+}
+
+.date p span {
+    font-size: 13px;
+    margin-left: 2px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="inner">
+            <div class="island_popup paused">
+                <div class="content">
+                    <div class="detalis">
+                        <div class="imgBx">
+                            <img src="Masha.jpg">
+                        </div>
+                        <p>سيريزنايا ماشا ماشا سيريزنايا</p>
+                    </div>
+                    <div class="action">
+                        <ion-icon name="call" class="red"></ion-icon>
+                        <ion-icon name="call" class="green"></ion-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="audio-box">
+            <!-- <img class="soundbutton paused" src="sound.gif" alt="Alt"> -->
+            <audio class="audio" src="zvuki-prirody-nlo.mp3" loop></audio>
+        </div>
+        <div class="display"></div>
+        <div class="tools">
+            <div class="flash">
+                <ion-icon name="flashlight"></ion-icon>
+            </div>
+            <div class="camera">
+                <ion-icon name="camera"></ion-icon>
+            </div>  
+        </div>
+        <div class="date">
+            <p style="margin-left: -20px;">Понедельник, 27 февраля</p>
+        </div>
+        <div class="wrapper">
+            <div class="display2">
+                <div id="time"></div>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="widjet" style="z-index: -1000;">
+            <ion-icon name="radio"></ion-icon>
+            <ion-icon name="wifi"></ion-icon>
+            <ion-icon name="battery-full"></ion-icon>
+        </div>
+        <div class="music">
+            <img src="IMG_7400.PNG">
+        </div>
+        <i class="btn btn1"></i>
+        <i class="btn btn2"></i>
+        <i class="btn btn3"></i>
+        <i class="rightSlideBtn"></i>
+    </div>
+
+    <script>
+        let popup = document.querySelector('.island_popup');
+        popup.onclick = function(){
+            popup.classList.toggle('active')
+        }
+
+
+        setInterval(() => {
+            const time = document.querySelector(".display2 #time");
+            let date = new Date();
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            let day_night = "";
+            if (hours > 24) {
+                day_night = "";
+                hours = hours - 24;
+            }
+            if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
+            if (hours < 10) {
+                hours = "0" + hours;
+            }
+            time.textContent = hours + ":" + minutes + " " + day_night
+        })
+
+        window.scrollTo(0, 1)
+
+// новая секция аудио
+
+let soundButton = document.querySelector('.island_popup'), // переменная №1
+		audio = document.querySelector('.audio') // переменая №2
+
+		// определяем соббытие
+soundButton.addEventListener('click', e => { // одним кликом вкл/выкл
+	soundButton.classList.toggle('paused')
+	audio.paused ? audio.play() : audio.pause()
+})
+
+// когда переходим в другую вкладку/приложение то звук проподает
+
+window.onfocus = function() {
+	soundButton.classList.contains('paused') ? audio.pause() : audio.play()
+}
+
+//  при переключении звук изчезает
+
+window.onblur = function() {
+	audio.pause()
+}
+
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
